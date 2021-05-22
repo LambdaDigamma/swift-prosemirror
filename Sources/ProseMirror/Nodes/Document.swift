@@ -63,7 +63,7 @@ extension Content: Codable {
 public struct Document: NodeStructure, Renderable {
     
     public var type: String
-    public var content: [Content]? = nil
+    public var content: [Content] = []
     
     public init() {
         self.type = "document"
@@ -74,7 +74,7 @@ public struct Document: NodeStructure, Renderable {
         type = try decoder.container(keyedBy: CodingKeys.self)
             .decode(String.self, forKey: .type)
         content = try decoder.container(keyedBy: CodingKeys.self)
-            .decodeIfPresent([Content].self, forKey: .content)
+            .decodeIfPresent([Content].self, forKey: .content) ?? []
     }
     
     enum CodingKeys: String, CodingKey {

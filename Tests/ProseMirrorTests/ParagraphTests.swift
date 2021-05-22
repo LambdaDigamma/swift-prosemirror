@@ -38,30 +38,25 @@ final class ParagraphTests: XCTestCase {
         }
         """
         
-        let decoder = JSONDecoder()
+        let parser = Parser()
+        let document = try parser.parse(input)
         
-        if let data = input.data(using: .utf8) {
-            let document = try decoder.decode(Document.self, from: data)
-            
-            if let content = document.content {
-                XCTAssertEqual(content.count, 2)
-                XCTAssertEqual(content, [
-                    .paragraph(
-                        NodeParagraph(content: [
-                            .text(NodeText(
-                                text: "Pünktlich zu unserem 50-jährigem Jubiläum ziehen wir mit dem Hauptteil des Marktes zurück in den Schlosspark und erfüllen uns und vielen langjährigen Festivalbesuchern damit einen sehnlichen Wunsch."
-                            ))
-                        ])
-                    ),
-                    .paragraph(
-                        NodeParagraph(content: [
-                            .text(NodeText(
-                                    text: "Pünktlich zu unserem 50-jährigem Jubiläum ziehen wir mit dem Hauptteil des Marktes zurück in den Schlosspark und erfüllen uns und vielen langjährigen Festivalbesuchern damit einen sehnlichen Wunsch."))
-                        ])
-                    )
+        XCTAssertEqual(document.content.count, 2)
+        XCTAssertEqual(document.content, [
+            .paragraph(
+                NodeParagraph(content: [
+                    .text(NodeText(
+                        text: "Pünktlich zu unserem 50-jährigem Jubiläum ziehen wir mit dem Hauptteil des Marktes zurück in den Schlosspark und erfüllen uns und vielen langjährigen Festivalbesuchern damit einen sehnlichen Wunsch."
+                    ))
                 ])
-            }
-        }
+            ),
+            .paragraph(
+                NodeParagraph(content: [
+                    .text(NodeText(
+                            text: "Pünktlich zu unserem 50-jährigem Jubiläum ziehen wir mit dem Hauptteil des Marktes zurück in den Schlosspark und erfüllen uns und vielen langjährigen Festivalbesuchern damit einen sehnlichen Wunsch."))
+                ])
+            )
+        ])
     }
     
     static var allTests = [

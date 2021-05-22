@@ -36,26 +36,21 @@ final class BulletListTests: XCTestCase {
         }
         """
         
-        let decoder = JSONDecoder()
+        let parser = Parser()
+        let document = try parser.parse(input)
         
-        if let data = input.data(using: .utf8) {
-            let document = try decoder.decode(Document.self, from: data)
-            
-            if let content = document.content {
-                XCTAssertEqual(content.count, 1)
-                XCTAssertEqual(content, [
-                    .bulletList(
-                        NodeBulletList(content: [
-                            .listItem(NodeListItem(content: [
-                                .text(NodeText(
-                                    text: "first list item"
-                                ))
-                            ]))
-                        ])
-                    ),
+        XCTAssertEqual(document.content.count, 1)
+        XCTAssertEqual(document.content, [
+            .bulletList(
+                NodeBulletList(content: [
+                    .listItem(NodeListItem(content: [
+                        .text(NodeText(
+                            text: "first list item"
+                        ))
+                    ]))
                 ])
-            }
-        }
+            ),
+        ])
     }
     
     static var allTests = [

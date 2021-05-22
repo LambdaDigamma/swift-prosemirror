@@ -18,14 +18,14 @@ public class Parser {
     public func parse(_ input: String) throws -> Document {
         
         guard let data = input.data(using: .utf8) else {
-            throw DecodingError.stringCouldNotBe
+            throw DecodingError.stringEncodingFailed
         }
         
         return try decoder.decode(Document.self, from: data)
     }
     
     public enum DecodingError: LocalizedError {
-        case stringCouldNotBe
+        case stringEncodingFailed
     }
     
 }

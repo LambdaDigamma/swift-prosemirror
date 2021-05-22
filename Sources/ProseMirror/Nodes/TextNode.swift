@@ -8,16 +8,37 @@
 import Foundation
 import SwiftUI
 
-enum MarkTypes: String, Codable {
+public enum MarkTypes: String, Codable {
     case bold = "bold"
     case italic = "italic"
     case underline = "underline"
-    case strike = "stike"
+    case strike = "strike"
     case superscript = "superscript"
 //    case `subscript` = "subscript"
 //    case code = "code"
 //    case link = "link"
 //    case highlight = "highlight"
+    
+    public init(from decoder: Decoder) throws {
+        
+        let type = try decoder.container(keyedBy: CodingKeys.self).decode(String.self, forKey: .type)
+        
+        if let type = MarkTypes(rawValue: type) {
+            self = type
+        } else {
+            throw ProseMirrorError.markNotKnown
+        }
+        
+    }
+    
+    public enum CodingKeys: String, CodingKey {
+        case type = "type"
+    }
+    
+}
+
+public enum ProseMirrorError: Error {
+    case markNotKnown
 }
 
 protocol Renderable {
