@@ -15,9 +15,9 @@ public struct Document: NodeStructure, Renderable {
     public var type: String
     public var content: [Content] = []
     
-    public init() {
+    public init(content: [Content] = []) {
         self.type = "document"
-        self.content = []
+        self.content = content
     }
     
     public init(from decoder: Decoder) throws {
@@ -32,9 +32,36 @@ public struct Document: NodeStructure, Renderable {
         case content = "content"
     }
     
+    @ViewBuilder
     func render() -> some View {
         
-        EmptyView()
+        VStack(alignment: .leading, spacing: 0) {
+            ForEach(0..<content.count) { i in
+                content[i].render()
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .padding(.bottom, 8)
+//                    .lineLimit(100)
+//                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }.frame(maxWidth: .infinity, alignment: .leading)
+        
+        
+        
+//        ForEach(content)
+        
+//        if let content = content.first {
+//            content.render()
+//        } else {
+//            Text("Fallback")
+////            EmptyView()
+//        }
+        
+//        (self.content.first ?? EmptyView()).render()
+        
+//        ForEach(self.content) { c in
+//            c.render()
+//        }
         
     }
     

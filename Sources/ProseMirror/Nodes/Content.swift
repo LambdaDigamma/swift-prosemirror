@@ -21,10 +21,41 @@ public enum Content: Equatable {
         switch self {
             case .text(let text):
                 text.render()
+            case .paragraph(let paragraph):
+                paragraph.render()
+            case .headline(let headline):
+                headline.render()
             default:
                 EmptyView()
         }
     }
+}
+
+public extension Collection where Element == Content {
+    
+    func reducedTextContent() -> [Text] {
+        
+        var textNodes: [NodeText] = []
+        
+        self.forEach { content in
+            switch content {
+                case Content.text(let text):
+                    textNodes.append(text)
+                default: break
+            }
+        }
+        
+        return textNodes.map({ $0.render() })
+    }
+    
+    func reducedText(weight: Font.Weight = .regular) -> some View {
+        reducedTextContent()
+            .reduce(Text(""), { $0 + $1 })
+            .fontWeight(weight)
+            .lineLimit(nil)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
 }
 
 extension Content: Codable {
@@ -79,6 +110,7 @@ extension Content: Codable {
             case .blockquote(let blockquote):
                 try singleContainer.encode(blockquote)
         }
+        
     }
     
 }

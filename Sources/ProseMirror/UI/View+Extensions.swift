@@ -7,10 +7,23 @@
 
 import SwiftUI
 
+extension View {
+    
+    @ViewBuilder
+    public func `if`<Content: View>(_ condition: Bool, content: (Self) -> Content) -> some View {
+        if condition {
+            content(self)
+        }
+        else {
+            self
+        }
+    }
+    
+}
 
 extension Text {
     
-    func active(
+    public func active(
         _ active: Bool,
         _ modifier: (Text) -> Text
     ) -> Text {
@@ -18,7 +31,7 @@ extension Text {
         return modifier(self)
     }
     
-    func active(
+    public func active(
         _ active: Bool,
         _ modifier: (Text) -> () -> Text
     ) -> Text {
@@ -26,27 +39,27 @@ extension Text {
         return modifier(self)()
     }
     
-    func boldify(if condition: Bool) -> Text {
+    public func boldify(if condition: Bool) -> Text {
         self.active(condition, Text.bold)
     }
     
-    func italicify(if condition: Bool) -> Text {
+    public func italicify(if condition: Bool) -> Text {
         self.active(condition, Text.italic)
     }
     
-    func underline(if condition: Bool) -> Text {
+    public func underline(if condition: Bool) -> Text {
         self.active(condition) { (text: Text) -> Text in
             text.underline()
         }
     }
     
-    func strike(if condition: Bool) -> Text {
+    public func strike(if condition: Bool) -> Text {
         self.active(condition) { (text: Text) -> Text in
             text.strikethrough()
         }
     }
     
-    func superscript(if condition: Bool) -> Text {
+    public func superscript(if condition: Bool) -> Text {
         self.active(condition) { (text: Text) -> Text in
             text.font(.system(size: 10.0)).baselineOffset(6)
         }

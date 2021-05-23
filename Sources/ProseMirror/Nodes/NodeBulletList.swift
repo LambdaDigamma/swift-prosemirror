@@ -10,4 +10,9 @@ import Foundation
 public struct NodeBulletList: Codable, Equatable {
     public var type: String = "bulletList"
     public var content: [Content] = []
+    
+    public init(type: String = "bulletList", content: [Content]) {
+        self.type = type
+        self.content = content
+    }
 }

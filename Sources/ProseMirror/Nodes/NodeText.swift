@@ -41,6 +41,7 @@ public struct NodeText: Codable, Equatable {
             .underline(if: marks.contains(.underline))
             .strike(if: marks.contains(.strike))
             .superscript(if: marks.contains(.superscript))
+            
     }
     
 }

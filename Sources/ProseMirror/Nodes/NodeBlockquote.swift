@@ -8,6 +8,11 @@
 import Foundation
 
 public struct NodeBlockquote: Codable, Equatable {
-    var type: String = "blockquote"
-    var content: [Content]
+    public var type: String = "blockquote"
+    public var content: [Content]
+    
+    public init(type: String = "blockquote", content: [Content]) {
+        self.type = type
+        self.content = content
+    }
 }
