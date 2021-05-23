@@ -23,7 +23,7 @@ struct TextNode: NodeStructure, Renderable {
     
     var type: String = "text"
     var text: String = ""
-    var marks: [MarkTypes] = []
+    var marks: [MarkType] = []
     
     func render() -> Text {
         Text(text)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum MarkTypes: String, Codable {
+public enum MarkType: String, Codable {
     case bold = "bold"
     case italic = "italic"
     case underline = "underline"
@@ -22,7 +22,7 @@ public enum MarkTypes: String, Codable {
         
         let type = try decoder.container(keyedBy: CodingKeys.self).decode(String.self, forKey: .type)
         
-        if let type = MarkTypes(rawValue: type) {
+        if let type = MarkType(rawValue: type) {
             self = type
         } else {
             throw ProseMirrorError.markNotKnown
