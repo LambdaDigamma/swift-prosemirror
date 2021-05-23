@@ -1,46 +1,46 @@
 //
-//  UnderlineTests.swift
+//  SuperscriptTests.swift
 //  
 //
-//  Created by Lennart Fischer on 22.05.21.
+//  Created by Lennart Fischer on 23.05.21.
 //
 
 import XCTest
 @testable import ProseMirror
 
-final class UnderlineTests: XCTestCase {
+final class SuperscriptTests: XCTestCase {
     
-    func testUnderline() throws {
-
+    func testSuperscript() throws {
+        
         let input = """
         {
             "type": "doc",
             "content": [
                 {
                     "type": "text",
-                    "text": "Example Text",
+                    "text": "See 1)",
                     "marks": [
                         {
-                            "type": "underline"
+                            "type": "superscript"
                         }
                     ]
                 }
             ]
         }
         """
-
+        
         let parser = Parser()
         let document = try parser.parse(input)
         
         XCTAssertEqual(document.content.count, 1)
         XCTAssertEqual(document.content, [
             .text(
-                NodeText(text: "Example Text", marks: [.underline])
+                NodeText(text: "See 1)", marks: [.superscript])
             )
         ])
     }
-
+    
     static var allTests = [
-        ("testUnderline", testUnderline)
+        ("testSuperscript", testSuperscript)
     ]
 }

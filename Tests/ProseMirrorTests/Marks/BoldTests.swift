@@ -1,6 +1,6 @@
 //
-//  UnderlineTests.swift
-//  
+//  BoldTests.swift
+//
 //
 //  Created by Lennart Fischer on 22.05.21.
 //
@@ -8,10 +8,10 @@
 import XCTest
 @testable import ProseMirror
 
-final class UnderlineTests: XCTestCase {
+final class BoldTests: XCTestCase {
     
-    func testUnderline() throws {
-
+    func testBold() throws {
+        
         let input = """
         {
             "type": "doc",
@@ -21,26 +21,26 @@ final class UnderlineTests: XCTestCase {
                     "text": "Example Text",
                     "marks": [
                         {
-                            "type": "underline"
+                            "type": "bold"
                         }
                     ]
                 }
             ]
         }
         """
-
+        
         let parser = Parser()
         let document = try parser.parse(input)
         
         XCTAssertEqual(document.content.count, 1)
         XCTAssertEqual(document.content, [
             .text(
-                NodeText(text: "Example Text", marks: [.underline])
+                NodeText(text: "Example Text", marks: [.bold])
             )
         ])
     }
-
+    
     static var allTests = [
-        ("testUnderline", testUnderline)
+        ("testBold", testBold),
     ]
 }
