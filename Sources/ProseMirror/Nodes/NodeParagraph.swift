@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 public struct NodeParagraph: Codable, Equatable {
     
@@ -18,6 +17,14 @@ public struct NodeParagraph: Codable, Equatable {
         self.content = content
     }
     
+}
+
+#if canImport(SwiftUI)
+
+import SwiftUI
+
+extension NodeParagraph {
+    
     @ViewBuilder
     public func render() -> some View {
         content.reducedText()
@@ -25,3 +32,5 @@ public struct NodeParagraph: Codable, Equatable {
     }
     
 }
+
+#endif

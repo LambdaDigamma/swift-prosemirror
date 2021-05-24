@@ -33,6 +33,7 @@ public class Parser {
 extension JSONDecoder {
     static let defaultProseMirrorDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .useDefaultKeys
         return decoder
     }()
 }

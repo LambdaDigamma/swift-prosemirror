@@ -48,3 +48,4 @@ final class BlockquoteTests: XCTestCase {
         ("testBlockquote", testBlockquote),
     ]
 }
+

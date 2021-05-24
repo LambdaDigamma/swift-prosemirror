@@ -8,6 +8,7 @@
 import Foundation
 
 public struct NodeBulletList: Codable, Equatable {
+    
     public var type: String = "bulletList"
     public var content: [Content] = []
     
@@ -15,4 +16,5 @@ public struct NodeBulletList: Codable, Equatable {
         self.type = type
         self.content = content
     }
+    
 }

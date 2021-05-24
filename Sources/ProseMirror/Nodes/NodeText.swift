@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 public struct NodeText: Codable, Equatable {
     
@@ -32,19 +31,25 @@ public struct NodeText: Codable, Equatable {
         case marks = "marks"
     }
     
-    // MARK: Rendering
-    
-    func render() -> Text {
+}
+
+#if canImport(SwiftUI)
+
+import SwiftUI
+
+extension NodeText: TextRenderable {
+        
+    public func render() -> Text {
         Text(text)
             .boldify(if: marks.contains(.bold))
             .italicify(if: marks.contains(.italic))
             .underline(if: marks.contains(.underline))
             .strike(if: marks.contains(.strike))
             .superscript(if: marks.contains(.superscript))
-            
     }
     
 }
+
 
 struct NodeText_Previews: PreviewProvider {
     
@@ -52,17 +57,17 @@ struct NodeText_Previews: PreviewProvider {
         
         Group {
             
-            TextNode(text: "Lorem ipsum", marks: [.bold, .italic])
+            NodeText(text: "Lorem ipsum", marks: [.bold, .italic])
                 .render()
                 .padding()
                 .previewLayout(.sizeThatFits)
             
-            TextNode(text: "Lorem ipsum", marks: [])
+            NodeText(text: "Lorem ipsum", marks: [])
                 .render()
                 .padding()
                 .previewLayout(.sizeThatFits)
             
-            TextNode(text: "Lorem ipsum", marks: [.strike, .italic])
+            NodeText(text: "Lorem ipsum", marks: [.strike, .italic])
                 .render()
                 .padding()
                 .previewLayout(.sizeThatFits)
@@ -72,3 +77,5 @@ struct NodeText_Previews: PreviewProvider {
     }
     
 }
+
+#endif

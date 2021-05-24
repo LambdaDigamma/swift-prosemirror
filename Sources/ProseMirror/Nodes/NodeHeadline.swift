@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 public struct NodeHeadline: Codable, Equatable {
     
@@ -36,7 +35,14 @@ public struct NodeHeadline: Codable, Equatable {
         }
     }
     
-    public var fontWeight: Font.Weight {
+}
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+public extension NodeHeadline {
+    
+    var fontWeight: Font.Weight {
         if level == 1 {
             return .bold
         } else if level == 2 {
@@ -49,7 +55,7 @@ public struct NodeHeadline: Codable, Equatable {
     }
     
     @ViewBuilder
-    public func render() -> some View {
+    func render() -> some View {
         content.reducedText(weight: fontWeight)
             .if(level == 1) { view in
                 view.font(.title)
@@ -61,4 +67,7 @@ public struct NodeHeadline: Codable, Equatable {
                 view.font(.title3)
             }
     }
+    
 }
+
+#endif

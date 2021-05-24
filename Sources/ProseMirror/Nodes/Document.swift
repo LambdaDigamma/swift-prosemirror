@@ -6,11 +6,8 @@
 //
 
 import Foundation
-import SwiftUI
 
-//public var defaultNodes: []
-
-public struct Document: NodeStructure, Renderable {
+public struct Document: Codable {
     
     public var type: String
     public var content: [Content] = []
@@ -32,6 +29,21 @@ public struct Document: NodeStructure, Renderable {
         case content = "content"
     }
     
+}
+
+#if canImport(SwiftUI)
+
+import SwiftUI
+
+protocol Renderable {
+    
+    associatedtype T: View
+    func render() -> T
+    
+}
+
+extension Document: Renderable {
+    
     @ViewBuilder
     func render() -> some View {
         
@@ -41,27 +53,8 @@ public struct Document: NodeStructure, Renderable {
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
                     .padding(.bottom, 8)
-//                    .lineLimit(100)
-//                    .fixedSize(horizontal: false, vertical: true)
             }
         }.frame(maxWidth: .infinity, alignment: .leading)
-        
-        
-        
-//        ForEach(content)
-        
-//        if let content = content.first {
-//            content.render()
-//        } else {
-//            Text("Fallback")
-////            EmptyView()
-//        }
-        
-//        (self.content.first ?? EmptyView()).render()
-        
-//        ForEach(self.content) { c in
-//            c.render()
-//        }
         
     }
     
@@ -70,29 +63,12 @@ public struct Document: NodeStructure, Renderable {
 struct DocumentPreviews: PreviewProvider {
     
     static var previews: some View {
-        
         return Document().render()
-        
     }
     
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#endif
 
 
 public class AnyNode: Codable {

@@ -1,0 +1,54 @@
+//
+//  HardBreakTests.swift
+//  
+//
+//  Created by Lennart Fischer on 24.05.21.
+//
+
+import XCTest
+@testable import ProseMirror
+
+final class HardBreakTests: XCTestCase {
+    
+    func testHardBreak() throws {
+        
+        let input = """
+        {
+            "type": "doc",
+            "content": [
+                {
+                    "type": "paragraph",
+                    "content": [
+                        {
+                            "text": "Pünktlich zu unserem 50-jährigem Jubiläum ziehen wir mit dem Hauptteil des Marktes zurück in den Schlosspark und erfüllen uns und vielen langjährigen Festivalbesuchern damit einen sehnlichen Wunsch.",
+                            "type": "text"
+                        }
+                    ]
+                },
+                {
+                    "type": "hardBreak",
+                }
+            ]
+        }
+        """
+        
+        let parser = Parser()
+        let document = try parser.parse(input)
+        
+        XCTAssertEqual(document.content.count, 2)
+        XCTAssertEqual(document.content, [
+            .paragraph(
+                NodeParagraph(content: [
+                    .text(NodeText(
+                        text: "Pünktlich zu unserem 50-jährigem Jubiläum ziehen wir mit dem Hauptteil des Marktes zurück in den Schlosspark und erfüllen uns und vielen langjährigen Festivalbesuchern damit einen sehnlichen Wunsch."
+                    ))
+                ])
+            ),
+            .hardBreak(NodeHardBreak())
+        ])
+    }
+    
+    static var allTests = [
+        ("testHardBreak", testHardBreak),
+    ]
+}

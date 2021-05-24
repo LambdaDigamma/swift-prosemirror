@@ -8,6 +8,7 @@
 import Foundation
 
 public struct NodeBlockquote: Codable, Equatable {
+    
     public var type: String = "blockquote"
     public var content: [Content]
     
@@ -15,4 +16,36 @@ public struct NodeBlockquote: Codable, Equatable {
         self.type = type
         self.content = content
     }
+    
 }
+    
+#if canImport(SwiftUI)
+import SwiftUI
+
+public extension NodeBlockquote {
+    
+    @ViewBuilder
+    func render() -> some View {
+        content.reducedText().padding(.leading).background(HStack {
+            Rectangle()
+                .fill(Color.primary)
+                .frame(maxWidth: 3)
+            Spacer()
+        })
+    }
+    
+}
+
+struct NodeBlockquotePreviews: PreviewProvider {
+    
+    static var previews: some View {
+        NodeBlockquote(content: [
+            .text(NodeText(text: "This is an example text for this blockquote prose element.")),
+        ])
+        .render()
+        .padding()
+    }
+    
+}
+
+#endif

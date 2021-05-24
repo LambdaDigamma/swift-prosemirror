@@ -5,23 +5,25 @@
 //  Created by Lennart Fischer on 05.04.21.
 //
 
+#if canImport(SwiftUI)
+
 import Foundation
 import SwiftUI
 
-let defaultNodes: [NodeStructure.Type] = [
-    Document.self,
-    Paragraph.self
-]
+//let defaultNodes: [NodeStructure.Type] = [
+//    Document.self,
+//    Paragraph.self
+//]
 
 class Renderer {
     
-    var supportedNodes: [NodeStructure.Type] = defaultNodes
+//    var supportedNodes: [NodeStructure.Type] = defaultNodes
     
     @ViewBuilder func render(document: Document) -> some View {
         
         let textNodes = [
-            TextNode(type: "text", text: "fdsakjldf", marks: []),
-            TextNode(type: "text", text: "sadfasdjffsadf", marks: []),
+            NodeText(type: "text", text: "fdsakjldf", marks: []),
+            NodeText(type: "text", text: "sadfasdjffsadf", marks: []),
         ]
         
         LazyVStack(alignment: .leading) {
@@ -35,7 +37,7 @@ class Renderer {
         
     }
     
-    @ViewBuilder func renderNode(_ textNode: TextNode) -> some View {
+    @ViewBuilder func renderNode(_ textNode: NodeText) -> some View {
         
         textNode.render()
         
@@ -52,3 +54,5 @@ struct Renderer_Preview: PreviewProvider {
     }
     
 }
+
+#endif
