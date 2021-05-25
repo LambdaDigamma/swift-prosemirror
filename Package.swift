@@ -20,9 +20,6 @@ let package = Package(
         .testTarget(
             name: "ProseMirrorTests",
             dependencies: ["ProseMirror"]
-//            resources: [
-//                .copy("Resources"),
-//            ]
         )
     ]
 )
