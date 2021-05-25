@@ -5,9 +5,9 @@
 //  Created by Lennart Fischer on 22.05.21.
 //
 
-import Foundation
+import SwiftUI
 
-public struct NodeParagraph: Codable, Equatable {
+public struct NodeParagraph: Codable, Equatable, View {
     
     public var type: String = "paragraph"
     public var content: [Content]
@@ -17,18 +17,14 @@ public struct NodeParagraph: Codable, Equatable {
         self.content = content
     }
     
-}
-
-#if canImport(SwiftUI)
-
-import SwiftUI
-
-extension NodeParagraph {
-    
     @ViewBuilder
     public func render() -> some View {
         content.reducedText()
             .padding(.bottom, 4)
+    }
+    
+    public var body: some View {
+        render()
     }
     
 }
@@ -45,5 +41,3 @@ struct NodeParagraph_Previews: PreviewProvider {
     }
     
 }
-
-#endif

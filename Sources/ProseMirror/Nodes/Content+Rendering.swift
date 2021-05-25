@@ -17,13 +17,13 @@ extension Content: View {
     public func render() -> some View {
         switch self {
             case .text(let text):
-                text.render()
+                text
             case .paragraph(let paragraph):
-                paragraph.render()
+                paragraph
             case .headline(let headline):
-                headline.render()
+                headline
             case .listItem(let listItem):
-                listItem.render()
+                listItem
             default:
                 EmptyView()
         }

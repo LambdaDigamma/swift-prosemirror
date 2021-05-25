@@ -5,9 +5,9 @@
 //  Created by Lennart Fischer on 24.05.21.
 //
 
-import Foundation
+import SwiftUI
 
-public struct NodeHardBreak: Codable, Equatable {
+public struct NodeHardBreak: Codable, Equatable, View, TextRenderable {
     
     public var type: String = "hardBreak"
     
@@ -15,13 +15,9 @@ public struct NodeHardBreak: Codable, Equatable {
         self.type = type
     }
     
-}
-
-#if canImport(SwiftUI)
-
-import SwiftUI
-
-extension NodeHardBreak: TextRenderable {
+    public var body: some View {
+        render()
+    }
     
     @ViewBuilder
     public func render() -> Text {
@@ -29,5 +25,3 @@ extension NodeHardBreak: TextRenderable {
     }
     
 }
-
-#endif

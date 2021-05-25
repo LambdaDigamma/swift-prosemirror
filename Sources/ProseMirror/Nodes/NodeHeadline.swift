@@ -5,9 +5,9 @@
 //  Created by Lennart Fischer on 22.05.21.
 //
 
-import Foundation
+import SwiftUI
 
-public struct NodeHeadline: Codable, Equatable {
+public struct NodeHeadline: Codable, Equatable, View {
     
     public var type: String = "headline"
     public var content: [Content] = []
@@ -27,6 +27,16 @@ public struct NodeHeadline: Codable, Equatable {
         }
     }
     
+    public enum CodingKeys: String, CodingKey {
+        case type
+        case content
+        case attrs
+    }
+    
+    // MARK: - Rendering
+    
+    @Environment(\.proseHeadlineColor) private var headlineColor
+    
     public var level: Int {
         if let level = attrs?.level {
             return level
@@ -35,14 +45,7 @@ public struct NodeHeadline: Codable, Equatable {
         }
     }
     
-}
-
-#if canImport(SwiftUI)
-import SwiftUI
-
-public extension NodeHeadline {
-    
-    var fontWeight: Font.Weight {
+    public var fontWeight: Font.Weight {
         if level == 1 {
             return .bold
         } else if level == 2 {
@@ -54,9 +57,14 @@ public extension NodeHeadline {
         }
     }
     
+    public var body: some View {
+        render()
+    }
+    
     @ViewBuilder
-    func render() -> some View {
+    public func render() -> some View {
         content.reducedText(weight: fontWeight)
+            .foregroundColor(headlineColor)
             .if(level == 1) { view in
                 view.font(.title)
             }
@@ -68,6 +76,10 @@ public extension NodeHeadline {
             }
     }
     
+    public static func == (lhs: NodeHeadline, rhs: NodeHeadline) -> Bool {
+        return lhs.type == rhs.type
+            && lhs.content == rhs.content
+            && lhs.headlineColor == rhs.headlineColor
+    }
+    
 }
-
-#endif

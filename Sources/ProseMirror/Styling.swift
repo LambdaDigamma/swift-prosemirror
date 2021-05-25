@@ -11,15 +11,37 @@ private struct ProseDefaultColorKey: EnvironmentKey {
     static let defaultValue = Color.primary
 }
 
-extension EnvironmentValues {
+private struct ProseHeadlineColorKey: EnvironmentKey {
+    static let defaultValue = Color.primary
+}
+
+private struct ProseUnorderedListItemStyle: EnvironmentKey {
+    static let defaultValue = BulletStyle.disk
+}
+
+public extension EnvironmentValues {
     var proseDefaultColor: Color {
         get { self[ProseDefaultColorKey.self] }
         set { self[ProseDefaultColorKey.self] = newValue }
     }
+    var proseHeadlineColor: Color {
+        get { self[ProseHeadlineColorKey.self] }
+        set { self[ProseHeadlineColorKey.self] = newValue }
+    }
+    var proseUnorderedListItemStyle: BulletStyle {
+        get { self[ProseUnorderedListItemStyle.self] }
+        set { self[ProseUnorderedListItemStyle.self] = newValue }
+    }
 }
 
-extension View {
-    func captionBackgroundColor(_ color: Color) -> some View {
+public extension View {
+    func proseDefaultColor(_ color: Color) -> some View {
         environment(\.proseDefaultColor, color)
+    }
+    func proseHeadlineColor(_ color: Color) -> some View {
+        environment(\.proseHeadlineColor, color)
+    }
+    func proseUnorderedListItemStyle(_ style: BulletStyle) -> some View {
+        environment(\.proseUnorderedListItemStyle, style)
     }
 }

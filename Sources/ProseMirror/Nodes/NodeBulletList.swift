@@ -5,20 +5,9 @@
 //  Created by Lennart Fischer on 22.05.21.
 //
 
-import Foundation
+import SwiftUI
 
-public struct ListBulletStyle: EnvironmentKey {
-    public static var defaultValue: BulletStyle = .disk
-}
-
-public extension EnvironmentValues {
-    var listBulletStyle: BulletStyle {
-        get { self[ListBulletStyle.self] }
-        set { self[ListBulletStyle.self] = newValue }
-    }
-}
-
-public struct NodeBulletList: Codable, Equatable {
+public struct NodeBulletList: Codable, Equatable, View {
     
     public var type: String = "bulletList"
     public var content: [Content] = []
@@ -27,13 +16,6 @@ public struct NodeBulletList: Codable, Equatable {
         self.type = type
         self.content = content
     }
-    
-}
-
-#if canImport(SwiftUI)
-import SwiftUI
-
-extension NodeBulletList: View {
     
     public var body: some View {
         render()
@@ -46,7 +28,7 @@ extension NodeBulletList: View {
             
             ForEach(0..<content.count) { index in
                 content[index].render()
-                    .environment(\.listBulletStyle, .square)
+//                    .proseUnorderedListItemStyle(.disk)
             }
             
         }
@@ -66,10 +48,20 @@ struct NodeBulletList_Previews: PreviewProvider {
                 .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")),
             ])),
         ])
-        .render()
         .padding()
+        .previewLayout(.sizeThatFits)
+        
+        NodeBulletList(content: [
+            .listItem(NodeListItem(content: [
+                .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")),
+            ])),
+            .listItem(NodeListItem(content: [
+                .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")),
+            ])),
+        ])
+        .proseUnorderedListItemStyle(.dash)
+        .padding()
+        .previewLayout(.sizeThatFits)
     }
     
 }
-
-#endif

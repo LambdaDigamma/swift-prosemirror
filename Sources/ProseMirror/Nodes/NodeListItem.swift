@@ -6,23 +6,17 @@
 //
 
 import Foundation
-
-#if canImport(SwiftUI)
 import SwiftUI
-#endif
 
 public enum BulletStyle: String {
     
     case disk = "disk"
-    case square = "square"
     case dash = "dash"
     
     public var symbol: String {
         switch self {
             case .disk:
                 return "•"
-            case .square:
-                return "▪"
             case .dash:
                 return "-"
         }
@@ -30,12 +24,9 @@ public enum BulletStyle: String {
 
 }
 
-public struct NodeListItem: Codable, Equatable {
+public struct NodeListItem: Codable, Equatable, View {
     
-    public static func == (lhs: NodeListItem, rhs: NodeListItem) -> Bool {
-        return lhs.type == rhs.type && lhs.style == rhs.style
-    }
-    
+    @Environment(\.proseUnorderedListItemStyle) private var style
     
     public var type: String = "listItem"
     public var content: [Content]
@@ -49,32 +40,6 @@ public struct NodeListItem: Codable, Equatable {
         case type
         case content
     }
-    
-    #if canImport(SwiftUI)
-    
-    @Environment(\.listBulletStyle) private var style
-    
-    #endif
-    
-}
-
-#if canImport(SwiftUI)
-
-//struct BulletItemStyle: ViewModifier {
-//
-//}
-//
-//extension BulletStyle: ViewModifier {
-//    public typealias Body = <#type#>
-//
-//
-//    public func body(content: Content) -> some View {
-//        return content.environment(\.listBulletStyle, .dash)
-//    }
-//
-//}
-
-extension NodeListItem: View {
     
     public var body: some View {
         render()
@@ -92,6 +57,10 @@ extension NodeListItem: View {
         
     }
     
+    public static func == (lhs: NodeListItem, rhs: NodeListItem) -> Bool {
+        return lhs.type == rhs.type && lhs.style == rhs.style
+    }
+    
 }
 
 struct NodeListItem_Previews: PreviewProvider {
@@ -101,14 +70,17 @@ struct NodeListItem_Previews: PreviewProvider {
         NodeListItem(content: [
             .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."))
         ])
-        .render()
-//        .foregroundColor(.secondary)
-//        .environment(\.listBulletStyle, .dash)
-//        .environment(\.listBulletStyle, .square)
+        .proseUnorderedListItemStyle(.disk)
         .padding()
+        .previewLayout(.sizeThatFits)
+        
+        NodeListItem(content: [
+            .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."))
+        ])
+        .proseUnorderedListItemStyle(.dash)
+        .padding()
+        .previewLayout(.sizeThatFits)
         
     }
     
 }
-
-#endif

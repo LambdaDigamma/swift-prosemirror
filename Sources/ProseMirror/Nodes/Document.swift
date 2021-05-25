@@ -40,7 +40,7 @@ public struct Document: Codable, View, Renderable {
         
         VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<content.count) { i in
-                content[i].render()
+                content[i]
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
                     .padding(.bottom, 8)
@@ -71,9 +71,13 @@ struct DocumentPreviews: PreviewProvider {
                 ], attrs: NodeHeadline.HeadlineAttributes(level: 1))),
                 .paragraph(NodeParagraph(content: [
                     "Just a small paragraph.".toNodeTextContent()
-                ]))
+                ])),
+                .headline(NodeHeadline(content: [
+                    "Headline #2".toNodeTextContent()
+                ], attrs: NodeHeadline.HeadlineAttributes(level: 2))),
             ])
-            .environment(\.proseDefaultColor, .red)
+            .proseHeadlineColor(.black)
+            .proseDefaultColor(.gray)
             .padding()
             .previewLayout(.sizeThatFits)
             

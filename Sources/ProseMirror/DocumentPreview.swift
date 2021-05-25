@@ -138,8 +138,6 @@ struct DocumentPreview_Previews: PreviewProvider {
                     DocumentPreview(document: parsed)
                         .padding()
                 }
-//                .background(Color.black)
-//                .environment(\.colorScheme, .dark)
             }
             
         }

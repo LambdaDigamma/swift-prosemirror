@@ -5,8 +5,6 @@
 //  Created by Lennart Fischer on 06.04.21.
 //
 
-#if canImport(SwiftUI)
-
 import SwiftUI
 
 extension View {
@@ -68,5 +66,3 @@ extension Text {
     }
     
 }
-
-#endif

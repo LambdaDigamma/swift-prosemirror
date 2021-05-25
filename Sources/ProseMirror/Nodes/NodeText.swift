@@ -5,9 +5,9 @@
 //  Created by Lennart Fischer on 22.05.21.
 //
 
-import Foundation
+import SwiftUI
 
-public struct NodeText: Codable, Equatable {
+public struct NodeText: Codable, Equatable, TextRenderable, View {
     
     public var type: String = "text"
     public var text: String
@@ -31,6 +31,19 @@ public struct NodeText: Codable, Equatable {
         case marks = "marks"
     }
     
+    public var body: some View {
+        render()
+    }
+    
+    public func render() -> Text {
+        Text(text)
+            .boldify(if: marks.contains(.bold))
+            .italicify(if: marks.contains(.italic))
+            .underline(if: marks.contains(.underline))
+            .strike(if: marks.contains(.strike))
+            .superscript(if: marks.contains(.superscript))
+    }
+    
 }
 
 public extension String {
@@ -44,24 +57,6 @@ public extension String {
     }
     
 }
-
-#if canImport(SwiftUI)
-
-import SwiftUI
-
-extension NodeText: TextRenderable {
-        
-    public func render() -> Text {
-        Text(text)
-            .boldify(if: marks.contains(.bold))
-            .italicify(if: marks.contains(.italic))
-            .underline(if: marks.contains(.underline))
-            .strike(if: marks.contains(.strike))
-            .superscript(if: marks.contains(.superscript))
-    }
-    
-}
-
 
 struct NodeText_Previews: PreviewProvider {
     
@@ -89,5 +84,3 @@ struct NodeText_Previews: PreviewProvider {
     }
     
 }
-
-#endif
