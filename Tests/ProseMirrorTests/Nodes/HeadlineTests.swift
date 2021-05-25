@@ -5,8 +5,6 @@
 //  Created by Lennart Fischer on 22.05.21.
 //
 
-import Foundation
-
 import XCTest
 @testable import ProseMirror
 

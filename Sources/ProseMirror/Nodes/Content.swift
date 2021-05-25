@@ -15,6 +15,7 @@ public enum Content: Equatable {
     case bulletList(NodeBulletList)
     case listItem(NodeListItem)
     case blockquote(NodeBlockquote)
+    case horizontalRule(NodeHorizontalRule)
 }
 
 extension Content: Codable {
@@ -50,6 +51,9 @@ extension Content: Codable {
             case "hardBreak":
                 let hardBreak = try singleContainer.decode(NodeHardBreak.self)
                 self = .hardBreak(hardBreak)
+            case "horizontalRule":
+                let horizontalRule = try singleContainer.decode(NodeHorizontalRule.self)
+                self = .horizontalRule(horizontalRule)
             default:
                 fatalError("Unknown type of content.")
         }
@@ -73,6 +77,8 @@ extension Content: Codable {
                 try singleContainer.encode(blockquote)
             case .hardBreak(let hardBreak):
                 try singleContainer.encode(hardBreak)
+            case .horizontalRule(let horizontalRule):
+                try singleContainer.encode(horizontalRule)
         }
         
     }
