@@ -13,6 +13,7 @@ public enum Content: Equatable {
     case headline(NodeHeadline)
     case paragraph(NodeParagraph)
     case bulletList(NodeBulletList)
+    case orderedList(NodeOrderedList)
     case listItem(NodeListItem)
     case blockquote(NodeBlockquote)
     case horizontalRule(NodeHorizontalRule)
@@ -43,6 +44,9 @@ extension Content: Codable {
             case "bulletList":
                 let bulletList = try singleContainer.decode(NodeBulletList.self)
                 self = .bulletList(bulletList)
+            case "orderedList":
+                let orderedList = try singleContainer.decode(NodeOrderedList.self)
+                self = .orderedList(orderedList)
             case "listItem":
                 let listItem = try singleContainer.decode(NodeListItem.self)
                 self = .listItem(listItem)
@@ -75,6 +79,8 @@ extension Content: Codable {
                 try singleContainer.encode(paragraph)
             case .bulletList(let bulletList):
                 try singleContainer.encode(bulletList)
+            case .orderedList(let orderedList):
+                try singleContainer.encode(orderedList)
             case .listItem(let listItem):
                 try singleContainer.encode(listItem)
             case .blockquote(let blockquote):

@@ -50,7 +50,7 @@ public struct NodeHeadline: Codable, Equatable, View {
             return .bold
         } else if level == 2 {
             return .bold
-        } else if level == 3 {
+        } else if level >= 3 {
             return .semibold
         } else {
             return .regular
@@ -71,7 +71,7 @@ public struct NodeHeadline: Codable, Equatable, View {
             .if(level == 2) { view in
                 view.font(.title2)
             }
-            .if(level == 3) { view in
+            .if(level >= 3) { view in
                 view.font(.title3)
             }
     }

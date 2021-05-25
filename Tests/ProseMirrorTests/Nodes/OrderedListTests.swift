@@ -1,23 +1,23 @@
 //
-//  BulletListTests.swift
+//  OrderedListTests.swift
 //  
 //
-//  Created by Lennart Fischer on 22.05.21.
+//  Created by Lennart Fischer on 26.05.21.
 //
 
 import XCTest
 @testable import ProseMirror
 
-final class BulletListTests: XCTestCase {
+final class OrderedListTests: XCTestCase {
     
-    func testBulletList() throws {
+    func testOrderedList() throws {
         
         let input = """
         {
             "type": "doc",
             "content": [
                 {
-                    "type": "bulletList",
+                    "type": "orderedList",
                     "content": [
                         {
                             "type": "listItem",
@@ -39,8 +39,8 @@ final class BulletListTests: XCTestCase {
         
         XCTAssertEqual(document.content.count, 1)
         XCTAssertEqual(document.content, [
-            .bulletList(
-                NodeBulletList(content: [
+            .orderedList(
+                NodeOrderedList(content: [
                     .listItem(NodeListItem(content: [
                         .text(NodeText(
                             text: "first list item"
@@ -52,6 +52,6 @@ final class BulletListTests: XCTestCase {
     }
     
     static var allTests = [
-        ("testBulletList", testBulletList),
+        ("testOrderedList", testOrderedList),
     ]
 }

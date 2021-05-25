@@ -1,3 +1,5 @@
+<img src="https://banners.beyondco.de/swift-prosemirror.png?theme=light&packageManager=&packageName=lambdadigamma%2Fswift-prosemirror&pattern=architect&style=style_1&description=A+ProseMirror+schema+parser+and+renderer+written+in+Swift+using+SwiftUI+to+render+a+document&md=1&showWatermark=0&fontSize=100px&images=document-text">
+
 # ProseMirror
 
 <p align="left">
@@ -56,6 +58,7 @@ document.render()
 - [ ] Support links with actions
 - [ ] Implement ability to customize styling
 - [ ] Make it easily extendable
+- [ ] Headlines in ordered and unordered lists
 
 ## Changelog
 

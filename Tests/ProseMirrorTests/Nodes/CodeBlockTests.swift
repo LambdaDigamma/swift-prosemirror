@@ -1,23 +1,23 @@
 //
-//  BlockquoteTests.swift
+//  CodeBlockTests.swift
 //  
 //
-//  Created by Lennart Fischer on 23.05.21.
+//  Created by Lennart Fischer on 26.05.21.
 //
 
 import XCTest
 @testable import ProseMirror
 
-final class BlockquoteTests: XCTestCase {
+final class CodeBlockTests: XCTestCase {
     
-    func testBlockquote() throws {
+    func testCodeBlock() throws {
         
         let input = """
         {
             "type": "doc",
             "content": [
                 {
-                    "type": "blockquote",
+                    "type": "codeBlock",
                     "content": [
                         {
                             "text": "Just testing",
@@ -34,8 +34,8 @@ final class BlockquoteTests: XCTestCase {
         
         XCTAssertEqual(document.content.count, 1)
         XCTAssertEqual(document.content, [
-            .blockquote(
-                NodeBlockquote(content: [
+            .codeBlock(
+                NodeCodeBlock(content: [
                     .text(NodeText(
                         text: "Just testing"
                     ))
@@ -45,7 +45,7 @@ final class BlockquoteTests: XCTestCase {
     }
     
     static var allTests = [
-        ("testBlockquote", testBlockquote),
+        ("testCodeBlock", testCodeBlock),
     ]
 }
 

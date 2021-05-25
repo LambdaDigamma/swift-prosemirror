@@ -17,6 +17,20 @@ public struct NodeBulletList: Codable, Equatable, View {
         self.content = content
     }
     
+    public enum CodingKeys: String, CodingKey {
+        case type
+        case content
+    }
+    
+    public static func == (lhs: NodeBulletList, rhs: NodeBulletList) -> Bool {
+        return lhs.type == rhs.type
+            && lhs.content == rhs.content
+    }
+    
+    // MARK: - Rendering
+    
+    @Environment(\.proseUnorderedListItemStyle) private var style
+    
     public var body: some View {
         render()
     }
@@ -27,8 +41,11 @@ public struct NodeBulletList: Codable, Equatable, View {
         VStack(spacing: 12) {
             
             ForEach(0..<content.count) { index in
-                content[index].render()
-//                    .proseUnorderedListItemStyle(.disk)
+                HStack(alignment: .top) {
+                    Text(style.symbol)
+                    content[index].render()
+                }
+                
             }
             
         }

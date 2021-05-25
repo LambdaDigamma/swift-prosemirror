@@ -47,18 +47,12 @@ public struct NodeListItem: Codable, Equatable, View {
     
     public func render() -> some View {
         
-        HStack(alignment: .top) {
-            
-            Text(style.symbol)
-            
-            content.reducedText()
-            
-        }
+        content.reducedText()
         
     }
     
     public static func == (lhs: NodeListItem, rhs: NodeListItem) -> Bool {
-        return lhs.type == rhs.type && lhs.style == rhs.style
+        return lhs.type == rhs.type && lhs.content == rhs.content
     }
     
 }
@@ -70,14 +64,6 @@ struct NodeListItem_Previews: PreviewProvider {
         NodeListItem(content: [
             .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."))
         ])
-        .proseUnorderedListItemStyle(.disk)
-        .padding()
-        .previewLayout(.sizeThatFits)
-        
-        NodeListItem(content: [
-            .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."))
-        ])
-        .proseUnorderedListItemStyle(.dash)
         .padding()
         .previewLayout(.sizeThatFits)
         
