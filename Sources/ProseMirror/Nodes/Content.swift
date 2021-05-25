@@ -8,9 +8,9 @@
 import Foundation
 
 public enum Content: Equatable {
-    case headline(NodeHeadline)
     case text(NodeText)
     case hardBreak(NodeHardBreak)
+    case headline(NodeHeadline)
     case paragraph(NodeParagraph)
     case bulletList(NodeBulletList)
     case listItem(NodeListItem)

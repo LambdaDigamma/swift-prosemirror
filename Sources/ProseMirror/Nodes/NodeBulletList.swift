@@ -23,7 +23,6 @@ public struct NodeBulletList: Codable, Equatable {
     public var type: String = "bulletList"
     public var content: [Content] = []
     
-    
     public init(type: String = "bulletList", content: [Content]) {
         self.type = type
         self.content = content
@@ -34,10 +33,14 @@ public struct NodeBulletList: Codable, Equatable {
 #if canImport(SwiftUI)
 import SwiftUI
 
-public extension NodeBulletList {
+extension NodeBulletList: View {
+    
+    public var body: some View {
+        render()
+    }
     
     @ViewBuilder
-    func render() -> some View {
+    public func render() -> some View {
         
         VStack(spacing: 12) {
             

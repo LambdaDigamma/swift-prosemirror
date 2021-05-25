@@ -5,8 +5,6 @@
 //  Created by Lennart Fischer on 23.05.21.
 //
 
-#if canImport(SwiftUI)
-
 import SwiftUI
 
 public struct DocumentPreview: View {
@@ -148,5 +146,3 @@ struct DocumentPreview_Previews: PreviewProvider {
         
     }
 }
-
-#endif

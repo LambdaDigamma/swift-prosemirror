@@ -5,16 +5,16 @@
 //  Created by Lennart Fischer on 25.05.21.
 //
 
-import Foundation
-
-#if canImport(SwiftUI)
-
 import SwiftUI
 
-public extension Content {
+extension Content: View {
+    
+    public var body: some View {
+        render()
+    }
     
     @ViewBuilder
-    func render() -> some View {
+    public func render() -> some View {
         switch self {
             case .text(let text):
                 text.render()
@@ -30,7 +30,6 @@ public extension Content {
     }
     
 }
-
 
 public extension Collection where Element == Content {
     
@@ -60,5 +59,3 @@ public extension Collection where Element == Content {
     }
     
 }
-
-#endif

@@ -12,6 +12,7 @@ import SwiftUI
 #endif
 
 public enum BulletStyle: String {
+    
     case disk = "disk"
     case square = "square"
     case dash = "dash"
@@ -26,6 +27,7 @@ public enum BulletStyle: String {
                 return "-"
         }
     }
+
 }
 
 public struct NodeListItem: Codable, Equatable {
@@ -58,9 +60,27 @@ public struct NodeListItem: Codable, Equatable {
 
 #if canImport(SwiftUI)
 
-public extension NodeListItem {
+//struct BulletItemStyle: ViewModifier {
+//
+//}
+//
+//extension BulletStyle: ViewModifier {
+//    public typealias Body = <#type#>
+//
+//
+//    public func body(content: Content) -> some View {
+//        return content.environment(\.listBulletStyle, .dash)
+//    }
+//
+//}
+
+extension NodeListItem: View {
     
-    func render() -> some View {
+    public var body: some View {
+        render()
+    }
+    
+    public func render() -> some View {
         
         HStack(alignment: .top) {
             
@@ -82,7 +102,9 @@ struct NodeListItem_Previews: PreviewProvider {
             .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."))
         ])
         .render()
-        .environment(\.listBulletStyle, .dash)
+//        .foregroundColor(.secondary)
+//        .environment(\.listBulletStyle, .dash)
+//        .environment(\.listBulletStyle, .square)
         .padding()
         
     }

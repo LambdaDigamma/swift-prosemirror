@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
-public struct NodeBlockquote: Codable, Equatable {
+public struct NodeBlockquote: Codable, Equatable, View {
     
     public var type: String = "blockquote"
     public var content: [Content]
@@ -17,15 +18,12 @@ public struct NodeBlockquote: Codable, Equatable {
         self.content = content
     }
     
-}
-    
-#if canImport(SwiftUI)
-import SwiftUI
-
-public extension NodeBlockquote {
+    public var body: some View {
+        render()
+    }
     
     @ViewBuilder
-    func render() -> some View {
+    public func render() -> some View {
         content.reducedText().padding(.leading).background(HStack {
             Rectangle()
                 .fill(Color.primary)
@@ -50,5 +48,3 @@ struct NodeBlockquotePreviews: PreviewProvider {
     }
     
 }
-
-#endif

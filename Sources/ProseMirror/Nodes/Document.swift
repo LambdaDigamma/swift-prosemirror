@@ -5,9 +5,9 @@
 //  Created by Lennart Fischer on 05.04.21.
 //
 
-import Foundation
+import SwiftUI
 
-public struct Document: Codable {
+public struct Document: Codable, View, Renderable {
     
     public var type: String
     public var content: [Content] = []
@@ -29,11 +29,28 @@ public struct Document: Codable {
         case content = "content"
     }
     
+    @Environment(\.proseDefaultColor) var proseDefaultColor
+    
+    public var body: some View {
+        render()
+    }
+    
+    @ViewBuilder
+    public func render() -> some View {
+        
+        VStack(alignment: .leading, spacing: 0) {
+            ForEach(0..<content.count) { i in
+                content[i].render()
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .padding(.bottom, 8)
+                    .foregroundColor(proseDefaultColor)
+            }
+        }.frame(maxWidth: .infinity, alignment: .leading)
+        
+    }
+    
 }
-
-#if canImport(SwiftUI)
-
-import SwiftUI
 
 protocol Renderable {
     
@@ -42,39 +59,41 @@ protocol Renderable {
     
 }
 
-extension Document: Renderable {
-    
-    @ViewBuilder
-    func render() -> some View {
-        
-        VStack(alignment: .leading, spacing: 0) {
-            ForEach(0..<content.count) { i in
-                content[i].render()
-                    .lineLimit(nil)
-                    .multilineTextAlignment(.leading)
-                    .padding(.bottom, 8)
-            }
-        }.frame(maxWidth: .infinity, alignment: .leading)
-        
-    }
-    
-}
-
 struct DocumentPreviews: PreviewProvider {
     
     static var previews: some View {
-        return Document(content: [
-            .headline(NodeHeadline(content: [
-                "Headline #1".toNodeTextContent()
-            ], attrs: NodeHeadline.HeadlineAttributes(level: 1))),
-            .paragraph(NodeParagraph(content: [
-                "Just a small paragraph.".toNodeTextContent()
-            ]))
-        ])
-        .render()
-        .padding()
+        
+        Group {
+            
+            Document(content: [
+                .headline(NodeHeadline(content: [
+                    "Headline #1".toNodeTextContent()
+                ], attrs: NodeHeadline.HeadlineAttributes(level: 1))),
+                .paragraph(NodeParagraph(content: [
+                    "Just a small paragraph.".toNodeTextContent()
+                ]))
+            ])
+            .environment(\.proseDefaultColor, .red)
+            .padding()
+            .previewLayout(.sizeThatFits)
+            
+            Document(content: [
+                .headline(NodeHeadline(content: [
+                    "Headline #1".toNodeTextContent()
+                ], attrs: NodeHeadline.HeadlineAttributes(level: 1))),
+                .paragraph(NodeParagraph(content: [
+                    "Just a small paragraph.".toNodeTextContent()
+                ]))
+            ])
+            .render()
+            .environment(\.colorScheme, .dark)
+            .padding()
+            .background(Color.black)
+            .previewLayout(.sizeThatFits)
+            
+        }
+        
+        
     }
     
 }
-
-#endif
