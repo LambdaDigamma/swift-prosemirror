@@ -63,67 +63,18 @@ extension Document: Renderable {
 struct DocumentPreviews: PreviewProvider {
     
     static var previews: some View {
-        return Document().render()
+        return Document(content: [
+            .headline(NodeHeadline(content: [
+                "Headline #1".toNodeTextContent()
+            ], attrs: NodeHeadline.HeadlineAttributes(level: 1))),
+            .paragraph(NodeParagraph(content: [
+                "Just a small paragraph.".toNodeTextContent()
+            ]))
+        ])
+        .render()
+        .padding()
     }
     
 }
 
 #endif
-
-
-public class AnyNode: Codable {
-    public var type: String
-    public var content: [AnyNode]?
-}
-
-public struct Heading: Codable {
-    
-    public struct Attributes: Codable {
-        public let level: Int
-    }
-    
-    let attributes: Attributes
-    
-    public enum CodingKeys: String, CodingKey {
-        case attributes = "attrs"
-    }
-    
-}
-
-
-protocol NodeData: Codable {
-    
-}
-
-
-//public class AnyNode: Codable {
-//
-//    var data: NodeData
-//
-//    init(_ base: NodeData) {
-//        self.data = base
-//    }
-//
-//    private enum CodingKeys: CodingKey {
-//        case type, data
-//    }
-//
-//    required public init(from decoder: Decoder) throws {
-//
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//
-////        let type = try container.decode(BlockType.self, forKey: .type)
-////        self.data = try type.metatype.init(from: container.superDecoder(forKey: .data))
-//
-//    }
-//
-//    public func encode(to encoder: Encoder) throws {
-//
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//
-//        try container.encode(type(of: data).type, forKey: .type)
-//        try data.encode(to: container.superEncoder(forKey: .data))
-//
-//    }
-//
-//}

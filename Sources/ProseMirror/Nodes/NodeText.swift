@@ -33,6 +33,18 @@ public struct NodeText: Codable, Equatable {
     
 }
 
+public extension String {
+    
+    func toNodeText(marks: [MarkType] = []) -> NodeText {
+        return NodeText(text: self, marks: marks)
+    }
+    
+    func toNodeTextContent(marks: [MarkType] = []) -> Content {
+        return .text(self.toNodeText(marks: marks))
+    }
+    
+}
+
 #if canImport(SwiftUI)
 
 import SwiftUI

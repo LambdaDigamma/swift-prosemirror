@@ -33,4 +33,17 @@ extension NodeParagraph {
     
 }
 
+struct NodeParagraph_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        NodeParagraph(content: [
+            "This is an example paragraph ".toNodeTextContent(),
+            "with some bold text.".toNodeTextContent(marks: [.bold])
+        ])
+        .render()
+        .padding()
+    }
+    
+}
+
 #endif

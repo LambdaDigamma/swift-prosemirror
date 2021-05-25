@@ -1,5 +1,5 @@
 //
-//  MarkTypes.swift
+//  MarkType.swift
 //  
 //
 //  Created by Lennart Fischer on 23.05.21.
@@ -35,3 +35,4 @@ public enum MarkType: String, Codable {
     }
     
 }
+

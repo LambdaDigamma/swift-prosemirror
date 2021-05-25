@@ -40,7 +40,10 @@ struct NodeBlockquotePreviews: PreviewProvider {
     
     static var previews: some View {
         NodeBlockquote(content: [
-            .text(NodeText(text: "This is an example text for this blockquote prose element.")),
+            .text(NodeText(text: "This is an example text for this blockquote prose element. ")),
+            .text(NodeText(text: "Some italic text. ", marks: [.italic])),
+            .text(NodeText(text: "And bold text. ", marks: [.bold])),
+            .text(NodeText(text: "And strike text. ", marks: [.strike]))
         ])
         .render()
         .padding()
