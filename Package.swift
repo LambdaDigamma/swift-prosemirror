@@ -15,7 +15,10 @@ let package = Package(
     targets: [
         .target(
             name: "ProseMirror",
-            dependencies: []
+            dependencies: [],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .testTarget(
             name: "ProseMirrorTests",

@@ -40,6 +40,16 @@ You can render a document to a SwiftUI `View` using:
 document.render()
 ```
 
+### Currently Supported Elements
+
+- Text
+- Hard Break
+- Paragraph
+- Headline (Level 1 to 3)
+- Blockquote
+- Unordered List (disk and dash)
+- CodeBlock
+
 ## Roadmap
 
 - [ ] Support all default mark types

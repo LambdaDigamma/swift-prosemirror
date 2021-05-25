@@ -24,6 +24,16 @@ extension Content: View {
                 headline
             case .listItem(let listItem):
                 listItem
+            case .bulletList(let bulletList):
+                bulletList
+            case .codeBlock(let codeBlock):
+                codeBlock
+            case .blockquote(let blockquote):
+                blockquote
+            case .hardBreak(let hardBreak):
+                hardBreak
+            case .horizontalRule(let horizontalRule):
+                horizontalRule
             default:
                 EmptyView()
         }
