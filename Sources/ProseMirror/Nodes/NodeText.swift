@@ -35,13 +35,36 @@ public struct NodeText: Codable, Equatable, TextRenderable, View {
         render()
     }
     
+    var containedLink: MarkLinkAttributes? {
+        
+        return marks.compactMap { (mark) -> MarkLinkAttributes? in
+            switch mark {
+                case .link(let attrs):
+                    return attrs
+                default: return nil
+            }
+        }.first
+        
+    }
+    
     public func render() -> Text {
-        Text(text)
+        
+        let containedLink = containedLink
+        
+        return Text(text)
             .boldify(if: marks.contains(.bold))
             .italicify(if: marks.contains(.italic))
             .underline(if: marks.contains(.underline))
             .strike(if: marks.contains(.strike))
             .superscript(if: marks.contains(.superscript))
+            .active(containedLink != nil, { text in
+                return text
+                    .foregroundColor(.blue)
+                    .underline()
+//                    .onTapGesture {
+//                        print("Tapped")
+//                    }
+            })
     }
     
 }
@@ -76,6 +99,10 @@ struct NodeText_Previews: PreviewProvider {
             
             NodeText(text: "Lorem ipsum", marks: [.strike, .italic])
                 .render()
+                .padding()
+                .previewLayout(.sizeThatFits)
+            
+            NodeText(text: "some Link", marks: [.link(attrs: MarkLinkAttributes(href: "https://duckduckgo.com"))])
                 .padding()
                 .previewLayout(.sizeThatFits)
             
