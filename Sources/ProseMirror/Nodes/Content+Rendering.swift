@@ -65,7 +65,7 @@ public extension Collection where Element == Content {
             .reduce(Text(""), { $0 + $1 })
             .fontWeight(weight)
             .lineLimit(nil)
-            .frame(maxWidth: .infinity, alignment: .leading)
+//            .frame(maxWidth: .infinity, alignment: .leading)
     }
     
 }

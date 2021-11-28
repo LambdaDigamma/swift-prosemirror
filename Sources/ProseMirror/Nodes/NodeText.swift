@@ -9,6 +9,8 @@ import SwiftUI
 
 public struct NodeText: Codable, Equatable, TextRenderable, View {
     
+    @Environment(\.proseDefaultFontWeight) var proseDefaultFontWeight
+    
     public var type: String = "text"
     public var text: String
     public var marks: [MarkType] = []
@@ -52,7 +54,10 @@ public struct NodeText: Codable, Equatable, TextRenderable, View {
         let containedLink = containedLink
         
         return Text(text)
-            .boldify(if: marks.contains(.bold))
+            .active(marks.contains(.bold), { text in
+                return text.foregroundColor(Color.primary).bold
+            })
+//            .boldify(if: marks.contains(.bold))
             .italicify(if: marks.contains(.italic))
             .underline(if: marks.contains(.underline))
             .strike(if: marks.contains(.strike))
@@ -67,6 +72,13 @@ public struct NodeText: Codable, Equatable, TextRenderable, View {
             })
     }
     
+    public static func == (lhs: NodeText, rhs: NodeText) -> Bool {
+        return
+            lhs.text == rhs.text &&
+            lhs.type == rhs.type &&
+            lhs.marks == rhs.marks
+    }
+    
 }
 
 public extension String {
@@ -79,6 +91,14 @@ public extension String {
         return .text(self.toNodeText(marks: marks))
     }
     
+    func toParagraphNode() -> NodeParagraph {
+        return NodeParagraph(content: [self.toNodeTextContent()])
+    }
+    
+    func toParagraphContent() -> Content {
+        return .paragraph(self.toParagraphNode())
+    }
+    
 }
 
 struct NodeText_Previews: PreviewProvider {
@@ -86,6 +106,11 @@ struct NodeText_Previews: PreviewProvider {
     static var previews: some View {
         
         Group {
+            
+            NodeText(text: "Lorem ipsum", marks: [.bold])
+                .render()
+                .padding()
+                .previewLayout(.sizeThatFits)
             
             NodeText(text: "Lorem ipsum", marks: [.bold, .italic])
                 .render()

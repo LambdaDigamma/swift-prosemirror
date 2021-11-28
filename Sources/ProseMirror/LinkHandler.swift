@@ -32,7 +32,7 @@ public class SafariOpener: LinkHandler {
     public func openLink(link: String, attrs: LinkAttributes) {
         
         guard let url = URL(string: link) else {
-            logger.error("URL could not be created: \(link)")
+            logger.error("URL could not be created: \(link, privacy: .public)")
             return
         }
         

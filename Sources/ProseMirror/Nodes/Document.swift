@@ -43,7 +43,9 @@ public struct Document: Codable, View, Renderable {
                 content[i]
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
-                    .padding(.bottom, 8)
+                    .if(i != content.count - 1, content: { view in
+                        view.padding(.bottom, 8)
+                    })
                     .foregroundColor(proseDefaultColor)
             }
         }.frame(maxWidth: .infinity, alignment: .leading)

@@ -27,6 +27,10 @@ private struct ProseUnorderedListItemStyle: EnvironmentKey {
     static let defaultValue = BulletStyle.disk
 }
 
+private struct ProseDefaultFontWeight: EnvironmentKey {
+    static let defaultValue = Font.Weight.regular
+}
+
 private struct ProseCodeBackgroundColor: EnvironmentKey {
     static let defaultValue = DefaultProseStyle.codeBackground
 }
@@ -56,11 +60,18 @@ public extension EnvironmentValues {
         get { self[ProseCodeForegroundColor.self] }
         set { self[ProseCodeForegroundColor.self] = newValue }
     }
+    var proseDefaultFontWeight: Font.Weight {
+        get { self[ProseDefaultFontWeight.self] }
+        set { self[ProseDefaultFontWeight.self] = newValue }
+    }
 }
 
 public extension View {
     func proseDefaultColor(_ color: Color) -> some View {
         environment(\.proseDefaultColor, color)
+    }
+    func proseDefaultFontWeight(_ fontWeight: Font.Weight) -> some View {
+        environment(\.proseDefaultFontWeight, fontWeight)
     }
     func proseHeadlineColor(_ color: Color) -> some View {
         environment(\.proseHeadlineColor, color)

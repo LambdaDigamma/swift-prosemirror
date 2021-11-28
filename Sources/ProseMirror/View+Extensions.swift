@@ -10,7 +10,7 @@ import SwiftUI
 extension View {
     
     @ViewBuilder
-    public func `if`<Content: View>(_ condition: Bool, content: (Self) -> Content) -> some View {
+    internal func `if`<Content: View>(_ condition: Bool, content: (Self) -> Content) -> some View {
         if condition {
             content(self)
         }

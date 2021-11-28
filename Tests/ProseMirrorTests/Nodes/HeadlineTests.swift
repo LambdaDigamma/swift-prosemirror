@@ -56,7 +56,7 @@ final class HeadlineTests: XCTestCase {
                 {
                     "type": "headline",
                     "attrs": {
-                        "level": 2
+                        "level": 2,
                     },
                     "content": [
                         {
@@ -79,7 +79,7 @@ final class HeadlineTests: XCTestCase {
                     .text(NodeText(
                         text: "Headline 2"
                     ))
-                ], attrs: NodeHeadline.HeadlineAttributes(level: 2))
+                ], attrs: NodeHeadline.HeadlineAttributes(level: 2, textAlignment: .left))
             ),
         ])
 
@@ -94,7 +94,8 @@ final class HeadlineTests: XCTestCase {
                 {
                     "type": "headline",
                     "attrs": {
-                        "level": 3
+                        "level": 3,
+                        "textAlign": "center"
                     },
                     "content": [
                         {
@@ -117,7 +118,7 @@ final class HeadlineTests: XCTestCase {
                     .text(NodeText(
                         text: "Headline 3"
                     ))
-                ], attrs: NodeHeadline.HeadlineAttributes(level: 3))
+                ], attrs: NodeHeadline.HeadlineAttributes(level: 3, textAlignment: .right))
             ),
         ])
     }

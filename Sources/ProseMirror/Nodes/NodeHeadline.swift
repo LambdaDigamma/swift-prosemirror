@@ -21,9 +21,22 @@ public struct NodeHeadline: Codable, Equatable, View {
     
     public struct HeadlineAttributes: Codable, Equatable {
         public var level: Int = 1
+        public var textAlignment: TextAlignment = .left
         
-        public init(level: Int = 1) {
+        public init(level: Int = 1, textAlignment: TextAlignment = .left) {
             self.level = level
+            self.textAlignment = textAlignment
+        }
+        
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.level = try container.decode(Int.self, forKey: .level)
+            self.textAlignment = (try? container.decode(ProseMirror.TextAlignment.self, forKey: .textAlignment)) ?? .left
+        }
+        
+        public enum CodingKeys: String, CodingKey {
+            case level = "level"
+            case textAlignment = "textAlign"
         }
     }
     
@@ -74,6 +87,11 @@ public struct NodeHeadline: Codable, Equatable, View {
             .if(level >= 3) { view in
                 view.font(.title3)
             }
+            .multilineTextAlignment(attrs?.textAlignment.toUI() ?? .leading)
+            .frame(
+                maxWidth: .infinity,
+                alignment: attrs?.textAlignment.toFrameAlignment() ?? .leading
+            )
     }
     
     public static func == (lhs: NodeHeadline, rhs: NodeHeadline) -> Bool {
@@ -83,3 +101,26 @@ public struct NodeHeadline: Codable, Equatable, View {
     }
     
 }
+
+struct NodeHeadline_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        NodeHeadline(content: [
+            "This is an example paragraph ".toNodeTextContent(),
+            "with some bold text.".toNodeTextContent(marks: [.bold])
+        ])
+            .render()
+            .padding()
+            .previewLayout(.sizeThatFits)
+        
+        NodeHeadline(content: [
+            "This is an example paragraph ".toNodeTextContent(),
+            "with some bold text.".toNodeTextContent(marks: [.bold])
+        ], attrs: NodeHeadline.HeadlineAttributes(level: 2, textAlignment: .center))
+            .render()
+            .padding()
+            .previewLayout(.sizeThatFits)
+    }
+    
+}
+

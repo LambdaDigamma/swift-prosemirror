@@ -38,7 +38,7 @@ public struct NodeBulletList: Codable, Equatable, View {
     @ViewBuilder
     public func render() -> some View {
         
-        VStack(spacing: 12) {
+        VStack(alignment: .leading, spacing: 12) {
             
             ForEach(0..<content.count) { index in
                 HStack(alignment: .top) {
