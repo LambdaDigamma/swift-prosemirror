@@ -23,6 +23,13 @@ public struct NodeParagraph: Codable, Equatable, View {
         self.attrs = attrs
     }
     
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.type = (try? container.decode(String.self, forKey: .type)) ?? "paragraph"
+        self.content = (try? container.decode([Content].self, forKey: .content)) ?? []
+        self.attrs = try container.decodeIfPresent(ParagraphAttributes.self, forKey: .attrs)
+    }
+    
     public struct ParagraphAttributes: Codable, Equatable {
         public var textAlignment: TextAlignment = .left
         
@@ -38,6 +45,12 @@ public struct NodeParagraph: Codable, Equatable, View {
         public enum CodingKeys: String, CodingKey {
             case textAlignment = "textAlign"
         }
+    }
+    
+    public enum CodingKeys: String, CodingKey {
+        case type = "type"
+        case content = "content"
+        case attrs = "attrs"
     }
     
     @ViewBuilder
