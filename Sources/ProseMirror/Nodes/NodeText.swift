@@ -53,7 +53,7 @@ public struct NodeText: Codable, Equatable, TextRenderable, View {
         
         let containedLink = containedLink
         
-        return Text(text)
+        return parsedText()
             .active(marks.contains(.bold), { text in
                 return text.foregroundColor(Color.primary).bold
             })
@@ -62,14 +62,40 @@ public struct NodeText: Codable, Equatable, TextRenderable, View {
             .underline(if: marks.contains(.underline))
             .strike(if: marks.contains(.strike))
             .superscript(if: marks.contains(.superscript))
-            .active(containedLink != nil, { text in
-                return text
-                    .foregroundColor(.blue)
-                    .underline()
-//                    .onTapGesture {
-//                        print("Tapped")
-//                    }
+            .active(containedLink != nil, { (text: Text) -> Text in
+                
+                if #available(iOS 15, *) {
+                    return text
+                        .foregroundColor(.accentColor)
+                        .underline()
+                } else {
+                    return text
+                }
+                
             })
+    }
+    
+    public func parsedText() -> Text {
+        
+        if #available(iOS 15, *) {
+            
+            if let href = containedLink?.href, let url = URL(string: href) {
+                
+                let absoluteURL = url.absoluteString.replacingOccurrences(of: "http://", with: "https://")
+                let attributedString = try? AttributedString(markdown: "[\(text)](\(absoluteURL))")
+                
+                return Text(attributedString ?? AttributedString(text))
+                
+            } else {
+                return Text(text)
+            }
+            
+        } else {
+            
+            return Text(text)
+            
+        }
+        
     }
     
     public static func == (lhs: NodeText, rhs: NodeText) -> Bool {
@@ -127,7 +153,7 @@ struct NodeText_Previews: PreviewProvider {
                 .padding()
                 .previewLayout(.sizeThatFits)
             
-            NodeText(text: "some Link", marks: [.link(attrs: MarkLinkAttributes(href: "https://duckduckgo.com"))])
+            NodeText(text: "some Link to DuckDuckGo", marks: [.link(attrs: MarkLinkAttributes(href: "https://duckduckgo.com"))])
                 .padding()
                 .previewLayout(.sizeThatFits)
             
