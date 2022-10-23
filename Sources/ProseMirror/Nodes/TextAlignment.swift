@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public enum TextAlignment: String, Codable {
+public enum TextAlignment: String, Codable, Hashable {
     
     case `left` = "left"
     case `right` = "right"

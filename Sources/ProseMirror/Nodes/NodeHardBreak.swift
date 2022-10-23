@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NodeHardBreak: Codable, Equatable, View, TextRenderable {
+public struct NodeHardBreak: Codable, Equatable, Hashable, View, TextRenderable {
     
     public var type: String = "hardBreak"
     

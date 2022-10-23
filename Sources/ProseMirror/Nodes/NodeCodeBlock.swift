@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NodeCodeBlock: Codable, Equatable, View {
+public struct NodeCodeBlock: Codable, Equatable, Hashable, View {
     
     public var type: String = "codeBlock"
     public var content: [Content]
@@ -46,6 +46,11 @@ public struct NodeCodeBlock: Codable, Equatable, View {
         })
         .foregroundColor(foreground)
         .background(background)
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(content)
     }
     
 }

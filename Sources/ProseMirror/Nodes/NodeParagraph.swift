@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NodeParagraph: Codable, Equatable, View {
+public struct NodeParagraph: Codable, Equatable, Hashable, View {
     
     public var type: String = "paragraph"
     public var content: [Content]
@@ -30,7 +30,7 @@ public struct NodeParagraph: Codable, Equatable, View {
         self.attrs = try container.decodeIfPresent(ParagraphAttributes.self, forKey: .attrs)
     }
     
-    public struct ParagraphAttributes: Codable, Equatable {
+    public struct ParagraphAttributes: Codable, Equatable, Hashable {
         public var textAlignment: TextAlignment = .left
         
         public init(textAlignment: TextAlignment = .left) {
@@ -57,7 +57,7 @@ public struct NodeParagraph: Codable, Equatable, View {
     public func render() -> some View {
         content.reducedText()
             .multilineTextAlignment(attrs?.textAlignment.toUI() ?? .leading)
-            .layoutPriority(100)
+            .layoutPriority(1000)
             .padding(.bottom, 4)
             .frame(
                 maxWidth: .infinity,
@@ -67,6 +67,12 @@ public struct NodeParagraph: Codable, Equatable, View {
     
     public var body: some View {
         render()
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(content)
+        hasher.combine(attrs)
     }
     
 }

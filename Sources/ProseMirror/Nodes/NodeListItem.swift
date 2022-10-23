@@ -24,7 +24,7 @@ public enum BulletStyle: String {
 
 }
 
-public struct NodeListItem: Codable, Equatable, View {
+public struct NodeListItem: Codable, Equatable, Hashable, View {
     
     @Environment(\.proseUnorderedListItemStyle) private var style
     
@@ -53,6 +53,11 @@ public struct NodeListItem: Codable, Equatable, View {
     
     public static func == (lhs: NodeListItem, rhs: NodeListItem) -> Bool {
         return lhs.type == rhs.type && lhs.content == rhs.content
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(content)
     }
     
 }

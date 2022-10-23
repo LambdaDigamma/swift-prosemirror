@@ -7,12 +7,12 @@
 
 import Foundation
 
-public struct MarkLinkAttributes: Codable, Equatable {
+public struct MarkLinkAttributes: Codable, Equatable, Hashable {
     public var href: String
     
 }
 
-public enum MarkType: Codable, Equatable {
+public enum MarkType: Codable, Equatable, Hashable {
     case bold
     case italic
     case underline

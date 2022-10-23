@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NodeOrderedList: Codable, Equatable, View {
+public struct NodeOrderedList: Codable, Equatable, Hashable, View {
     
     public var type: String = "orderedList"
     public var content: [Content] = []

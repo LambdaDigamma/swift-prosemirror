@@ -38,15 +38,12 @@ public struct Document: Codable, View, Renderable {
     @ViewBuilder
     public func render() -> some View {
         
-        VStack(alignment: .leading, spacing: 0) {
-            ForEach(0..<content.count) { i in
-                content[i]
+        VStack(alignment: .leading, spacing: 4) {
+            ForEach(content, id: \.self) { c in
+                c
                     .lineLimit(nil)
-                    .multilineTextAlignment(.leading)
-                    .if(i != content.count - 1, content: { view in
-                        view.padding(.bottom, 8)
-                    })
                     .foregroundColor(proseDefaultColor)
+                    
             }
         }.frame(maxWidth: .infinity, alignment: .leading)
         

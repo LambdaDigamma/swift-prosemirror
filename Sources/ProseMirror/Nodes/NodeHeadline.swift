@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NodeHeadline: Codable, Equatable, View {
+public struct NodeHeadline: Codable, Equatable, Hashable, View {
     
     public var type: String = "headline"
     public var content: [Content] = []
@@ -19,7 +19,7 @@ public struct NodeHeadline: Codable, Equatable, View {
         self.attrs = attrs
     }
     
-    public struct HeadlineAttributes: Codable, Equatable {
+    public struct HeadlineAttributes: Codable, Equatable, Hashable {
         public var level: Int = 1
         public var textAlignment: TextAlignment = .left
         
@@ -98,6 +98,12 @@ public struct NodeHeadline: Codable, Equatable, View {
         return lhs.type == rhs.type
             && lhs.content == rhs.content
             && lhs.headlineColor == rhs.headlineColor
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(content)
+        hasher.combine(attrs)
     }
     
 }

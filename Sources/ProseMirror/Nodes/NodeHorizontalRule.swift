@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NodeHorizontalRule: Codable, Equatable, View {
+public struct NodeHorizontalRule: Codable, Equatable, Hashable, View {
     
     public var type: String = "horizontalRule"
     

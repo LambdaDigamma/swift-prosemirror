@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Content: Equatable {
+public enum Content: Equatable, Hashable {
     case text(NodeText)
     case hardBreak(NodeHardBreak)
     case headline(NodeHeadline)

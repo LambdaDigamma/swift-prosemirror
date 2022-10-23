@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NodeText: Codable, Equatable, TextRenderable, View {
+public struct NodeText: Codable, Equatable, TextRenderable, View, Hashable {
     
     @Environment(\.proseDefaultFontWeight) var proseDefaultFontWeight
     
@@ -35,6 +35,8 @@ public struct NodeText: Codable, Equatable, TextRenderable, View {
     
     public var body: some View {
         render()
+            .lineLimit(nil)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     var containedLink: MarkLinkAttributes? {
@@ -103,6 +105,12 @@ public struct NodeText: Codable, Equatable, TextRenderable, View {
             lhs.text == rhs.text &&
             lhs.type == rhs.type &&
             lhs.marks == rhs.marks
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(text)
+        hasher.combine(marks)
     }
     
 }

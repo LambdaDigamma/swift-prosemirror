@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct NodeBulletList: Codable, Equatable, View {
+public struct NodeBulletList: Codable, Equatable, Hashable, View {
     
     public var type: String = "bulletList"
     public var content: [Content] = []
@@ -50,6 +50,11 @@ public struct NodeBulletList: Codable, Equatable, View {
             
         }
         
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(content)
     }
     
 }

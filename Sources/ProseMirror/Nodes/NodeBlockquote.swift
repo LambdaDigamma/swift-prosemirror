@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public struct NodeBlockquote: Codable, Equatable, View {
+public struct NodeBlockquote: Codable, Equatable, Hashable, View {
     
     public var type: String = "blockquote"
     public var content: [Content]
