@@ -66,7 +66,7 @@ public extension Collection where Element == Content {
             .fontWeight(weight)
             .lineLimit(1000)
             .layoutPriority(1200)
-            .frame(maxWidth: .infinity, alignment: .leading)
+//            .frame(maxWidth: .infinity, alignment: .leading)
     }
     
 }
