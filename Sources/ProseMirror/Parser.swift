@@ -11,7 +11,7 @@ public class Parser {
     
     private let decoder: JSONDecoder
     
-    init(decoder: JSONDecoder = .defaultProseMirrorDecoder) {
+    public init(decoder: JSONDecoder = .defaultProseMirrorDecoder) {
         self.decoder = decoder
     }
     
@@ -30,7 +30,7 @@ public class Parser {
     
 }
 
-extension JSONDecoder {
+public extension JSONDecoder {
     static let defaultProseMirrorDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .useDefaultKeys
