@@ -79,7 +79,18 @@ public struct NodeParagraph: Codable, Equatable, Hashable, View {
 
 struct NodeParagraph_Previews: PreviewProvider {
     
+    static let content: Content =
+        .paragraph(NodeParagraph(content: [
+            "This is an example paragraph ".toNodeTextContent(),
+        ]))
+    
+    
     static var previews: some View {
+        
+        content
+            .padding()
+            .previewLayout(.sizeThatFits)
+        
         NodeParagraph(content: [
             "This is an example paragraph ".toNodeTextContent(),
             "with some bold text.".toNodeTextContent(marks: [.bold])
@@ -95,6 +106,7 @@ struct NodeParagraph_Previews: PreviewProvider {
             .render()
             .padding()
             .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
     
 }

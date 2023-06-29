@@ -38,9 +38,12 @@ public struct NodeBulletList: Codable, Equatable, Hashable, View {
     @ViewBuilder
     public func render() -> some View {
         
+        let count = content.count
+        
         VStack(alignment: .leading, spacing: 12) {
             
-            ForEach(0..<content.count) { index in
+            ForEach(0..<count, id: \.self) { index in
+                    
                 HStack(alignment: .top) {
                     Text(style.symbol)
                     content[index].render()
@@ -64,7 +67,14 @@ struct NodeBulletList_Previews: PreviewProvider {
     static var previews: some View {
         NodeBulletList(content: [
             .listItem(NodeListItem(content: [
-                .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")),
+                "Schrägdenkerformat klein: 1,30m breit x 1,0m".toParagraphContent()
+//                .paragraph(NodeParagraph(
+//                    type: "paragraph",
+//                    content: [
+//                        .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")),
+//                    ],
+//                    attrs: nil
+//                ))
             ])),
             .listItem(NodeListItem(content: [
                 .text(NodeText(text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")),
@@ -84,6 +94,7 @@ struct NodeBulletList_Previews: PreviewProvider {
         .proseUnorderedListItemStyle(.dash)
         .padding()
         .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.dark)
     }
     
 }

@@ -38,7 +38,7 @@ extension Content: Codable {
             case "text":
                 let text = try singleContainer.decode(NodeText.self)
                 self = .text(text)
-            case "headline":
+            case "headline", "heading":
                 let headline = try singleContainer.decode(NodeHeadline.self)
                 self = .headline(headline)
             case "bulletList":

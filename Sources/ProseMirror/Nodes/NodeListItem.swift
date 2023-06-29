@@ -47,7 +47,7 @@ public struct NodeListItem: Codable, Equatable, Hashable, View {
     
     public func render() -> some View {
         
-        content.reducedText()
+        content.renderCollection()
         
     }
     

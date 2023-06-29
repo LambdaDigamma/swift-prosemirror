@@ -97,7 +97,6 @@ public struct NodeHeadline: Codable, Equatable, Hashable, View {
     public static func == (lhs: NodeHeadline, rhs: NodeHeadline) -> Bool {
         return lhs.type == rhs.type
             && lhs.content == rhs.content
-            && lhs.headlineColor == rhs.headlineColor
     }
     
     public func hash(into hasher: inout Hasher) {

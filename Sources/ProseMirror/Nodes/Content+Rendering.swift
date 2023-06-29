@@ -19,7 +19,7 @@ extension Content: View {
             case .text(let text):
                 text
             case .paragraph(let paragraph):
-                paragraph
+                paragraph.render()
             case .headline(let headline):
                 headline
             case .listItem(let listItem):
@@ -39,9 +39,37 @@ extension Content: View {
         }
     }
     
+    @ViewBuilder
+    public func debugType() -> some View {
+        
+        switch self {
+            case .text(_):
+                Text("Text")
+            case .hardBreak(_):
+                Text("Hardbreak")
+            case .headline(_):
+                Text("Headline")
+            case .paragraph(_):
+                Text("Paragraph")
+            case .bulletList(_):
+                Text("Bullet List")
+            case .orderedList(_):
+                Text("Ordered List")
+            case .listItem(_):
+                Text("List Item")
+            case .blockquote(_):
+                Text("Blockquote")
+            case .horizontalRule(_):
+                Text("Horizontal Rule")
+            case .codeBlock(_):
+                Text("Code Block")
+        }
+        
+    }
+    
 }
 
-public extension Collection where Element == Content {
+public extension Array where Element == Content {
     
     func reducedTextContent() -> [Text] {
         
@@ -67,6 +95,18 @@ public extension Collection where Element == Content {
             .lineLimit(1000)
             .layoutPriority(1200)
 //            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    func renderCollection(spacing: Double = 8) -> some View {
+        
+        VStack(alignment: .leading) {
+            
+            ForEach(self.indices, id: \.self) { i in
+                self[i].render()
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        
     }
     
 }
