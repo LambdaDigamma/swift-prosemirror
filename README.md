@@ -1,16 +1,17 @@
-<img src="https://banners.beyondco.de/swift-prosemirror.png?theme=light&packageManager=&packageName=lambdadigamma%2Fswift-prosemirror&pattern=architect&style=style_1&description=A+ProseMirror+schema+parser+and+renderer+written+in+Swift+using+SwiftUI+to+render+a+document&md=1&showWatermark=0&fontSize=100px&images=document-text">
+<!-- <img src="https://banners.beyondco.de/swift-prosemirror.png?theme=light&packageManager=&packageName=lambdadigamma%2Fswift-prosemirror&pattern=architect&style=style_1&description=A+ProseMirror+schema+parser+and+renderer+written+in+Swift+using+SwiftUI+to+render+a+document&md=1&showWatermark=0&fontSize=100px&images=document-text"> -->
 
 # ProseMirror
 
 <p align="left">
-<img src="https://img.shields.io/apm/l/atomic-design-ui.svg">
 <img src="https://img.shields.io/badge/platforms-iOS%2C%20macOS%2C%20watchOS%2C%20tvOS-lightgrey.svg">
 <img alt="Swift" src="https://github.com/LambdaDigamma/swift-prosemirror/actions/workflows/swift.yml/badge.svg">
 </p>
 
-A [ProseMirror](https://prosemirror.net/) schema parser and renderer written in Swift using SwiftUI to render a document
+A native Swift implementation for parsing and rendering [ProseMirror](https://prosemirror.net/) schema documents using SwiftUI.
 
-This package ships with a parser which generates type-safe documents that can directly be rendered using the build-in SwiftUI renderer. Rendered documents can also be styled with
+**Features** <br/>
+📝 Parse ProseMirror schema into type-safe Swift models <br />
+🎨 Render documents directly with SwiftUI (proof-of-concept)
 
 ## Installation
 
@@ -47,10 +48,10 @@ document.render()
 - Text
 - Hard Break
 - Paragraph
+- Links
 - Headline (Level 1 to 3)
 - Blockquote
 - Unordered List (disk and dash)
-- CodeBlock
 
 ## Roadmap
 
