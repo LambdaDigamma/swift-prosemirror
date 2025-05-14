@@ -19,7 +19,7 @@ Install `swift-prosemirror` with Swift Package Manager
 
 ```swift
 dependencies: [
-    .package(name: "ProseMirror", url: "https://github.com/lambdadigamma/swift-prosemirror", .upToNextMajor(from: "0.0.1")),
+    .package(name: "ProseMirror", url: "https://github.com/lambdadigamma/swift-prosemirror", .upToNextMajor(from: "0.0.7")),
     ...
 ]
 ```
