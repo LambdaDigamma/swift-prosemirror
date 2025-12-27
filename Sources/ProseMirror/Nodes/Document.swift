@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct Document: Codable, View, Renderable {
+public struct Document: Codable, Equatable, View, Renderable {
     
     public var type: String
     public var content: [Content] = []
@@ -47,6 +47,11 @@ public struct Document: Codable, View, Renderable {
             }
         }.frame(maxWidth: .infinity, alignment: .leading)
         
+    }
+    
+    public static func == (lhs: Document, rhs: Document) -> Bool {
+        return lhs.type == rhs.type
+            && lhs.content == rhs.content
     }
     
 }
