@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct Document: Codable, Equatable, View, Renderable {
+public struct Document: Codable, Equatable, Hashable, View, Renderable {
     
     public var type: String
     public var content: [Content] = []
@@ -52,6 +52,11 @@ public struct Document: Codable, Equatable, View, Renderable {
     public static func == (lhs: Document, rhs: Document) -> Bool {
         return lhs.type == rhs.type
             && lhs.content == rhs.content
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
+        hasher.combine(content)
     }
     
 }
